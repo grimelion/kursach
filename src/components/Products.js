@@ -20,7 +20,16 @@ class Products extends Component{
 		}
 		productsData = this.props.productsList.filter(searchingFor(term)).map(product =>{
 			return(
-						<Product key={product.id} price={product.price} name={product.name} image={product.image} id={product.id} addToCart={this.props.addToCart} productQuantity={this.props.productQuantity} updateQuantity={this.props.updateQuantity} openModal={this.props.openModal}/>
+						<Product 
+							key={product.id} 
+							price={product.price} 
+							name={product.name} 
+							image={product.image} 
+							id={product.id} 
+							addToCart={this.props.addToCart} 
+							productQuantity={this.props.productQuantity} 
+							updateQuantity={this.props.updateQuantity} 
+							openModal={this.props.openModal}/>
 				)
 			}
 		);

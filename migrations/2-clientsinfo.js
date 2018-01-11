@@ -3,44 +3,18 @@
 module.exports.id = "clientsInfo";
 
 module.exports.up = function (done) {
-  // use this.db for MongoDB communication, and this.log() for logging
   const clients = [
     {
+      login: 'login1',
       firstName: 'Abraham',
       lastName: 'Katz',
-      phone: '+972093847563',
-      account: '',
-      address: [
-        {
-          country: 'Israel',
-          city: 'Tel Aviv-Yafo',
-          houseAddress: '14 Yosef Ziman St.',
-          isBilling: true,
-          isShipping: true
-        }
-      ]
+      phone: '+972093847563'
     },
     {
+      login: 'login2',
       firstName: 'Eli',
       lastName: 'Rubinstein',
-      phone: '+972094984396',
-      account: '',
-      address: [
-        {
-          country: 'Israel',
-          city: 'Tel Aviv-Yafo',
-          houseAddress: '5 Heftman St.',
-          isBilling: true,
-          isShipping: false
-        },
-        {
-          country: 'Israel',
-          city: 'Giv\'at Shmuel',
-          houseAddress: '11 Rambam St.',
-          isBilling: false,
-          isShipping: true
-        }
-      ]
+      phone: '+972094984396'
     }
   ];
   this.db.collection('accounts').find().toArray((err, res) => {

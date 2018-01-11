@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
-import Header from './Header';
+import HeaderComponent from './Header';
 import Products from './Products';
 import Pagination from './Pagination';
 import Footer from './Footer';
-import QuickView from './/QuickView';
+import QuickView from './QuickView';
 import Login from './Login';
 
 export default class Main extends Component {
@@ -22,7 +22,8 @@ export default class Main extends Component {
 			cartBounce: false,
 			quantity: 1,
 			quickViewProduct: {},
-			modalActive: false
+			modalActive: false,
+			modalCartActive: false
 		};
 		this.handleSearch = this.handleSearch.bind(this);
 		this.handleMobileSearch = this.handleMobileSearch.bind(this);
@@ -35,17 +36,19 @@ export default class Main extends Component {
 		this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
+		this.openCartModal = this.openCartModal.bind(this);
+		this.closeCartModal = this.closeCartModal.bind(this);
 	}
 
-  getProducts() {
+	getProducts() {
 		axios.get('https://api.mlab.com/api/1/databases/db_mummakill/collections/products?apiKey=zHrF8dJm-5rKELK9RJ-GO0EGtecbooPD')
 			.then(response => {
 				this.setState({
 					products: response.data
 				})
 			})
-  }
-  
+	}
+
 	componentWillMount() {
 		this.getProducts();
 	}
@@ -152,11 +155,23 @@ export default class Main extends Component {
 		})
 	}
 
+	openCartModal() {
+		this.setState({
+			modalCartActive: true
+		})
+	}
+
+	closeCartModal() {
+		this.setState({
+			modalCartActive: false
+		})
+	}
+
 	render() {
-		if(window.localStorage.getItem('sessionID')) {
+		if (window.localStorage.getItem('sessionID')) {
 			return (
 				<div className="container">
-					<Header
+					<HeaderComponent
 						cartBounce={this.state.cartBounce}
 						total={this.state.totalAmount}
 						totalItems={this.state.totalItems}
@@ -168,6 +183,7 @@ export default class Main extends Component {
 						categoryTerm={this.state.category}
 						updateQuantity={this.updateQuantity}
 						productQuantity={this.state.moq}
+						openModal={this.openModal}
 					/>
 					<Products
 						productsList={this.state.products}
@@ -178,11 +194,14 @@ export default class Main extends Component {
 						openModal={this.openModal}
 					/>
 					<Footer />
-					<QuickView product={this.state.quickViewProduct} openModal={this.state.modalActive} closeModal={this.closeModal} />
+					<QuickView
+						openModal={this.state.modalActive}
+						closeModal={this.closeModal} 
+						product={this.state.quickViewProduct} />
 				</div>
 			)
 		} else {
-			return(
+			return (
 				<Login />
 			)
 		}

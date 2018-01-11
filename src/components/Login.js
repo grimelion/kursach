@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { Form, Text } from 'react-form';
-// import { User } from '../../db/models/models';
 import sha256 from 'sha256';
+import axios from 'axios';
 
 export default class Login extends Component {
-  successValidator(values) {
 
-    const sessionID = sha256(values.login);
-    window.localStorage.setItem('sessionID', sessionID);
-    // window.location.href = '/';
+  successValidator(values) {
+    axios.post('/auth', values).then(res => {
+      window.localStorage.setItem('sessionID', res.data);
+      window.location.href = '/';
+    });
   };
 
   render() {
@@ -18,14 +19,10 @@ export default class Login extends Component {
         <Form onSubmit={ submittedValues => this.successValidator(submittedValues) }>
         { formApi => (
           <form onSubmit={ formApi.submitForm } id='form1'>
-            <label htmlFor='login'>Login: </label>
-            <Text field='login' id='login' /><br/><br/>
-            <label htmlFor='firstName'>First name: </label>
-            <Text field='firstName' id='firstName' /><br/><br/>
-            <label htmlFor='lastName'>Last name: </label>
-            <Text field='lastName' id='lastName' /><br/><br/>
-            <label htmlFor='phone'>Contact phone: </label>
-            <Text field='phone' id='phone' /><br/><br/>
+            <label htmlFor='email'>Email: </label>
+            <Text field='email' type='email' id='email' /><br/><br/>
+            <label htmlFor='password'>Password: </label>
+            <Text field='password' type='password' id='password' /><br/><br/>
             <button type='submit'>Submit</button>
           </form>
         )}

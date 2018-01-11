@@ -292,11 +292,14 @@ header {
   bottom: 0;
   padding: 16px;
   width: 100%; }
-  .action-block button {
+  .action-block a {
     background: #fc7710;
     display: block;
+    text-align: center;
+    color: white;
+    padding: 5px;
     width: 100%; }
-    .action-block button.disabled {
+    .action-block a.disabled {
       opacity: 0.3;
       cursor: not-allowed; }
 

@@ -1,25 +1,28 @@
 'use strict';
 
-module.exports.id = "categories";
+module.exports.id = "sizes";
 
 module.exports.up = function (done) {
   // use this.db for MongoDB communication, and this.log() for logging
-  const categories = [
+  const sizes = [
     {
       id: 0,
-      name: 'Default',
-      children: [1, 2]
+      name: 'warm-clothes'
     },
     {
       id: 1,
-      name: 'Headwear'
+      name: 'lightweight-clothes'
     },
     {
       id: 2,
-      name: 'Food'
+      name: 'business-clothes'
+    },
+    {
+      id: 3,
+      name: 'footwear'
     }
   ];
-  this.db.collection('categories').insertMany(categories, done);
+  this.db.collection('sizes').insertMany(sizes, done);
 };
 
 module.exports.down = function (done) {
